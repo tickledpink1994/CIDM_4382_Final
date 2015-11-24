@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <html xmlns:ng="http://angularjs.org" lang="en">
+    <head>
+        <title>Delve</title>
+        
+        <!--set up bootstrap-->
+        <meta charset="utf-8">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        
+        <!--get our own local stylesheet-->
+        <link rel="stylesheet" src="./stylesheet.css">
+    </head>
+    <body background="./img/ModelDungeon.jpg">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Delve</a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Create a Dungeon</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">Create an Account</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <nav class="navbar navbar-default">
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Tab 1</a></li>
+                        <li><a href="#">Tab 2</a></li>
+                        <li><a href="#">Tab 3</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="container-fluid" style="background-color:white; height:100vh;">
+                <div class="col-md-3 sidenav">
+                    This will be the sidebar
+                </div>
+                <div class="col-md-9 maincontent">
+                    this will be main content
+                </div>
+        </div>
+        
+        
+        <!--Bring in the Angular Middlewares-->
+        <script type="text/javascript" src="/lib/angular/angular.js"></script>
+        <script type="text/javascript" src="/application.js"></script>
+    </body>
+</html>
