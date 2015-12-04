@@ -1,0 +1,9 @@
+<section data-ng-contoller="DungeonController" data-ng-init="find()">
+    <h1>Dungeons</h1>
+    
+    <ul>
+        <li data-ng-repeat="dungeon in dungeons">
+            <a data-ng-href="#!/dungeon/{{dungeon._id}}" data-ng-bind="dungeon.name"></a>
+        </li>
+    </ul>
+</section>

@@ -11,7 +11,7 @@
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-        
+		
         <!--get our own local stylesheet-->
         <link rel="stylesheet" src="./stylesheet.css">
     </head>
@@ -19,41 +19,46 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Delve</a>
+                    <a class="navbar-brand" href="#!/">Dungeon Crawler</a>
                 </div>
                 <div>
                     <ul class="nav navbar-nav">
-                        <li><a href="#">Create a Dungeon</a></li>
-                        <li><a href="#">Gallery</a></li>
-                        <li><a href="#">Create an Account</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#!/dungeon">Create a Dungeon</a></li>
+                        <li><a href="#!/gallery">Gallery</a></li>
+                        <li><a href="#!/user">Create an Account</a></li>
+                        <li><a href="#!/contact">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <div class="container-fluid">
-            <nav class="navbar navbar-default">
-                <div>
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Tab 1</a></li>
-                        <li><a href="#">Tab 2</a></li>
-                        <li><a href="#">Tab 3</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <div class="container-fluid" style="background-color:white; height:100vh;">
-                <div class="col-md-3 sidenav">
-                    This will be the sidebar
-                </div>
-                <div class="col-md-9 maincontent">
-                    this will be main content
-                </div>
-        </div>
         
+        <div class="container-fluid" style="background-color:white; height:100vh; margin-top:100px;">
+            <div class="col-md-6 contentLeft">
+                <section class="dungeonModule" ng-view></section>
+            </div>
+                
+            <div class="col-md-6 contentRight">
+                <section ng-view></section>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            window.dungeon = <%- dungeon || 'null' %>;
+        </script>
         
-        <!--Bring in the Angular Middlewares-->
+        <!--Bring in the Angular libraries-->
         <script type="text/javascript" src="/lib/angular/angular.js"></script>
+        <script type="text/javascript" src="/lib/angular-route/angular-route.js"></script>
+        <script type="text/javascript" src="/lib/angular-resource/angular-resource.js"></script>
+        <script type="text/javascript" src="/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        
+        <!--import the dungeon module-->
+        <script type="text/javascript" src="/dungeon/dungeon.client.module.js"></script>
+        <script type="text/javascript" src="/dungeon/controllers/dungeon.client.controller.js"></script>
+        <script type="text/javascript" src="/dungeon/config/dungeon.client.routes.js"></script>
+        <script type="text/javascript" src="/dungeon/services/dungeon.client.service.js"></script>
+        
+        <!--import the application-->
         <script type="text/javascript" src="/application.js"></script>
     </body>
 </html>

@@ -2,6 +2,7 @@
 var express = require('express');
 
 module.exports = function() {
+    
     //call the module.exports method of the express library
     var app = express();
     
@@ -11,6 +12,8 @@ module.exports = function() {
     
     //set up the routing for the app
     require('../app/routes/index.server.routes.js')(app);
+    require('../app/routes/user.server.routes.js')(app);
+    require('../app/routes/dungeon.server.routes.js')(app);
     
     //Where to retrieve images and other static content from
     app.use(express.static('./client'));

@@ -1,0 +1,113 @@
+<section data-ng-controller="DungeonController" data-ng-init="findOne()">
+    <!--dungeon == null ? create() : -->
+    
+    <form data-ng-submit="update()" novalidate>
+        <div>
+            <nav class="navbar navbar-default">
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li ng-repeat="link in navmenu">
+                            <a href="#!/dungeon" ng-click="$parent.isCollapsed = link.hidemain; $parent.gmidLevel = link.gmid">{{ link.disp }}</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#!/dungeon" ng-click="isCollapsed = false">Save</a>
+                        </li>
+                    </ul>
+                </div>  
+            </nav>
+        </div>
+        
+        <div id="DungeonGeneral" uib-collapse="isCollapsed">
+            <h1>General Dungeon Information</h1>
+    
+            Dungeon Name: <input type="text" data-ng-model="name" required/></br>
+            General Description: </br><textarea rows="10" cols="60" data-ng-model="desc"></textarea></br>
+            Cover Image: <input type="text" data-ng-model="cover"/></br>
+            Theme: <select data-ng-model="theme">
+                <option value="basic">Basic</option>
+            </select></br>
+            <input type="submit" value="Add Level"/></br>
+            <input type="submit" value="Add Table"/></br>
+            <div data-ng-show="error">
+                <strong data-ng-bind="error"></strong>
+            </div>
+        </div>
+        
+        <div ng-init="gmidLevel = 1" id="DungeonLevel" uib-collapse="!isCollapsed">
+            <h1 data-ng-model="gmidLevel">Level {{ gmidLevel }}</h1>
+            Level: <input type="text" id="lID" ng-model="lID"/></br>
+            Level Name: <input type="text" id="lName" ng-model="lname"/></br>
+            General Description: </br><textarea id="lDesc" rows="10" cols="40" ng-model="ldesc"></textarea></br>
+            <button type="button" id="addroom" ng-init="roomCollapse = true" ng-click="roomCollapse = !roomCollapse">Add Room</button></br>
+            <div uib-collapse="roomCollapse">
+                Room: <input type="text" id="rID" ng-model="rID"/></br>
+                Description: </br><textarea id="rDesc" rows="10" cols="40" ng-model="rdesc"></textarea></br>
+                Shape: <select id="rShape" ng-model="rshape" ng-init="shpCollapse = true" ng-click="shpCollapse = (rshape === other)">
+                    <option value="square">Square</option>
+                    <option value="hex">Hexagon</option>
+                    <option value="oct">Octagon</option>
+                    <option value="circle">Circle</option>
+                    <option value="other">Other</option>
+                </select></br>
+                <div id="roomShape" uib-collapse="shpCollapse">
+                    Description: <input type="text" id="wdesc" ng-model="wdesc"/></br>
+                    Wall Count: <input type="text" id="wcount" ng-model="wcount"/></br>
+                </div></br>
+                Location: <input type="text" id="rlocx" ng-model="rlocx"/><input type="text" id="rlocy" ng-model="rlocy"/></br>
+                Walls:</br>
+                <div>   
+                    Material: <input type="text" id="wmat"/></br>
+                    Direction: <select id="wdir">
+                        <option value="N">North</option>
+                        <option value="NE">North East</option>
+                        <option value="E">East</option>
+                        <option value="SE">South East</option>
+                        <option value="S">South</option>
+                        <option value="SW">South West</option>
+                        <option value="W">West</option>
+                        <option value="NW">North West</option>
+                    </select></br>
+                    <input type="checkbox" id="wMov" value="canMove"/> Moveable </br>
+                    <input type="checkbox" id="wVis" value="Visable"/> Visible </br>
+                    Terrain: <input type="text" id="wTerr"/></br>
+                    Location: <input type="text" id="wlocx" ng-model="wlocx"/><input type="text" id="wlocy" ng-model="wlocy"/></br>
+                    Size: <input type="text" id="wsizeh" ng-model="wsizeh"/><input type="text" id="wsizew" ng-model="wsizew"/><input type="text" id="wsizel" ng-model="wsizel"/></br>
+                    <button type="button" id="addwdoor" ng-init="wdrCollapse = true" ng-click="wdrCollapse = !wdrCollapse">Add Door</button></br>
+                    <div uib-collapse="wdrCollapse">
+                        Location: <input type="text" id="wdloc"/></br>
+                        Size: <input type="text" id="wdsize"/></br>
+                    </div></br>
+                </div></br>
+                Floor:</br>
+                <div>
+                    Material: <input type="text" id="fmat"/></br>
+                    <input type="checkbox" id="fMov" value="canMove"/> Moveable </br>
+                    <input type="checkbox" id="fVis" value="Visable"/> Visible </br>
+                    <button type="button" id="addfdoor" ng-init="fdrCollapse = true" ng-click="fdrCollapse = !fdrCollapse">Add Door</button></br>
+                    <div uib-collapse="fdrCollapse">
+                        Location: <input type="text" id="fdloc"/></br>
+                        Size: <input type="text" id="fdsize"/></br>
+                    </div></br>
+                </div></br>
+                Ceiling:</br>
+                <div>
+                    Material: <input type="text" id="cmat"/></br>
+                    <input type="checkbox" id="cMov" value="canMove"/> Moveable </br>
+                    <input type="checkbox" id="cVis" value="Visable"/> Visible </br>
+                    <button type="button" id="addcdoor" ng-init="cdrCollapse = true" ng-click="cdrCollapse = !cdrCollapse">Add Door</button></br>
+                    <div uib-collapse="cdrCollapse">
+                        Location: <input type="text" id="cdloc"/></br>
+                        Size: <input type="text" id="cdsize"/></br>
+                    </div></br>
+                </div></br>
+                <input type="submit" value="Add Table"/></br>
+            </div></br>
+            <input type="submit" value="Add Table"/></br>
+        </div></br>
+        
+        <input type="Submit" value="Save Dungeon"/></br>
+    </form>
+    
+</section>

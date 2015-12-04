@@ -2,11 +2,19 @@ html, body{
     height:100vh;
 }
 
-.sidenav {
+.contentLeft {
     height: 100vh;
     border-right:1px solid gray;
 }
 
-.maincontent {
+.contentRight {
     height: 100vh;   
+}
+
+#main {
+    display: block;
+}
+
+#level {
+    display: none;
 }

@@ -1,0 +1,14 @@
+<nav class="navbar navbar-default" ng-controller="MenuController">
+    <div>
+        <ul class="nav navbar-nav">
+            <li ng-repeat="link in navmenu">
+                <a ng-href="#!/{{link.ref}}">{{ link.disp }}</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a ng-data-submit="create()" novalidate ng-href="#!/dungeon">Save</a>
+            </li>
+        </ul>
+    </div>  
+</nav>

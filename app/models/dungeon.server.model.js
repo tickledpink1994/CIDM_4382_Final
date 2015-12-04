@@ -6,97 +6,44 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var dungeonSchema = new Schema({
-    Name: String,
-    CreatedBy: String,
+    Name: {
+        type: String,
+        default: '',
+        trim: true,
+        required: 'Dungeon must have a name.'
+    },
+    CreatedBy: {
+        type: Schema.ObjectId,
+        ref: 'User'
+    },
     CreatedOn: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
-    Description: String,
+    Description: {
+        type: String,
+        default: '',
+        trim: true
+    },
     Levels: [{
-        GMID: Number,
-        Description: String,
-        Rooms: [{
-            GMID: Number,
-            Description: String,
-            Shape: {
-                Description: String,
-                WallCount: Number
-            },
-            Location: {x:Number, y:Number},
-            Makeup: {
-                Walls: [{
-                    CID: Number,
-                    Material: String,
-                    Direction: Number,
-                    Moveable: Boolean,
-                    Terrain: [String],
-                    Location: {x: Number, y:Number},
-                    Size: {h: Number, w:Number},
-                    Visible: Boolean,
-                    Doors: [{
-                        CID: Number,
-                        Material: String,
-                        Location: {x: Number, y:Number},
-                        Size: {h: Number, w:Number},
-                        Status: [String],
-                        GoesToRoom: Number
-                    }],
-                    Windows: [{
-                        CID: Number,
-                        Material: String,
-                        Location: {x: Number, y:Number},
-                        Size: {h: Number, w:Number},
-                        Status: [String],
-                        GoesToRoom: Number
-                    }]
-                }],
-                Ceiling: {
-                    Materiel: String,
-                    Terrain: [String],
-                    Moveable: Boolean,
-                    Visible: Boolean,
-                    Doors: [{
-                        CID: Number,
-                        Material: String,
-                        Location: {x: Number, y:Number},
-                        Size: {h: Number, w:Number},
-                        Status: [String],
-                        GoesToRoom: Number
-                    }],
-                    Windows: [{
-                        CID: Number,
-                        Material: String,
-                        Location: {x: Number, y:Number},
-                        Size: {h: Number, w:Number},
-                        Status: [String],
-                        GoesToRoom: Number
-                    }]
-                },
-                Floor: {
-                    Materiel: String,
-                    Terrain: [String],
-                    Moveable: Boolean,
-                    Visible: Boolean,
-                    Doors: [{
-                        CID: Number,
-                        Material: String,
-                        Location: {x: Number, y:Number},
-                        Size: {h: Number, w:Number},
-                        Status: [String],
-                        GoesToRoom: Number
-                    }],
-                    Windows: [{
-                        CID: Number,
-                        Material: String,
-                        Location: {x: Number, y:Number},
-                        Size: {h: Number, w:Number},
-                        Status: [String],
-                        GoesToRoom: Number
-                    }]
-            }
-        }]
-    }]
+        level: {
+            type: Schema.ObjectId,
+            ref: 'Levels'
+        }
+    }],
+    Tables: [{
+        table: {
+            type: Schema.ObjectId,
+            ref: 'Tables'
+        }
+    }],
+    Notes: String
 });
+
+dungeonSchema.virtual('levelCount').get(function() {
+    return this.Levels.length;
+});
+
+dungeonSchema.set('toJSON', { getters: true, virtuals: true });
 
 var Dungeon = mongoose.model('Dungeon', dungeonSchema);

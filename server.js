@@ -4,9 +4,11 @@
 
 //import the express library
 var express = require('./config/express');
+var mongoose = require("./config/mongoose");
 
 //call the modules.exports method of the express configuration file
 //this is where all the middleware is stored
+var db = mongoose();
 var app = express(); 
 
 //now that all the middleware is set up, start listening
