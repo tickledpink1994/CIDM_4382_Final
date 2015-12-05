@@ -13,8 +13,8 @@ var getErrorMessage = function(err) {
 };
 
 exports.create = function(req, res, next) {
+    console.log('creating new dungeon...');
     var dungeon = new Dungeon(req.body);
-    dungeon.createdby = req.user;
     dungeon.createdon = Date.now();
     
     dungeon.save(function(err) {
@@ -23,13 +23,16 @@ exports.create = function(req, res, next) {
                 message: getErrorMessage(err)
             });
         }else{
+            console.log("Success");
+            console.log(dungeon);
             res.json(dungeon);
         }
     });
 };
 
 exports.list = function(req, res) {
-    Dungeon.find().sort('-CreatedOn').populate('CreatedBy').exec(function(err, dungeons) {
+    console.log("Getting a list of dungeons");
+    Dungeon.find().exec(function(err, dungeons) {
         if (err) {
             return res.status(400).send({
                 message: getErrorMessage(err)
@@ -41,25 +44,31 @@ exports.list = function(req, res) {
 };
 
 exports.dungeonByID = function(req, res, next, id) {
-  Dungeon.findById(id)  .populate('CreatedBy').exec(function(err, dungeon) {
-      if (err) return next(err);
-      if (!dungeon) return next(new Error('Failed to load dungeon ' + id));
-      req.dungeon = dungeon;
-      next();
-  });
+    console.log("Getting Dungeon by ID");
+    console.log("ID: " + id);
+    Dungeon.findById(id).exec(function(err, dungeon) {
+        if (err) return next(err);
+        if (!dungeon) return next(new Error('Failed to load dungeon ' + id));
+        req.dungeon = dungeon;
+        next();
+    });
 };
 
 exports.read = function(req, res) {
-  res.json(req.dungeon)  ;
+    console.log("viewing a dungeon");
+    res.json(req.dungeon);
 };
 
 exports.update = function(req, res) {
-  var dungeon = req.dungeon;
+    console.log("Updating a dungeon");
+    var dungeon = req.dungeon;
   
-  dungeon.Name = req.body.name;
-  dungeon.Description = req.body.desc;
-  
-  dungeon.save(function(err) {
+    console.log(req.dungeon);
+    console.log(req.body);
+    dungeon.Name = req.body.Name;
+    dungeon.Description = req.body.Description;
+      
+    dungeon.save(function(err) {
         if (err) {
             return res.status(400).send({
                 message: getErrorMessage(err)
@@ -71,6 +80,7 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
+    console.log("Deleting a dungeon");
     var dungeon = req.dungeon;
     
     dungeon.remove(function(err){
@@ -82,4 +92,13 @@ exports.delete = function(req, res) {
             res.json(dungeon);
         }
     });
+};
+
+exports.hasAuthorization = function(req, res, next) {
+  if (req.dungeon.CreatedBy.id !== req.user.id) {
+      return res.status(403).send({
+          message: 'User is not authorized'
+      });
+  }
+  next();
 };

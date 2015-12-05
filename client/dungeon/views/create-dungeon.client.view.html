@@ -1,4 +1,4 @@
-<section data-ng-controller="DungeonController" data-ng-init="findOne()">
+<section data-ng-controller="DungeonController" data-ng-init="!(did == null) ? findOne() : create()">
     <!--dungeon == null ? create() : -->
     
     <form data-ng-submit="update()" novalidate>
@@ -22,8 +22,8 @@
         <div id="DungeonGeneral" uib-collapse="isCollapsed">
             <h1>General Dungeon Information</h1>
     
-            Dungeon Name: <input type="text" data-ng-model="name" required/></br>
-            General Description: </br><textarea rows="10" cols="60" data-ng-model="desc"></textarea></br>
+            Dungeon Name: <input type="text" data-ng-model="dungeon.Name" required/></br>
+            General Description: </br><textarea rows="10" cols="60" data-ng-model="dungeon.Description"></textarea></br>
             Cover Image: <input type="text" data-ng-model="cover"/></br>
             Theme: <select data-ng-model="theme">
                 <option value="basic">Basic</option>

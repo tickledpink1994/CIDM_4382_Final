@@ -1,30 +1,42 @@
-angular.module('dungeon').controller('DungeonController', ['$scope', '$routeParams', '$location', 'Dungeon', 
-function($scope, $routeParams, $location, Dungeon) {
+angular.module('dungeon').controller('DungeonController', ['$scope', 'Authentication', '$routeParams', '$location', 'Dungeon', 
+function($scope, Authentication, $routeParams, $location, Dungeon) {
+    
+    $scope.did = $routeParams.dungeonid;
     
     $scope.create = function() {
+        console.log("creating new dungeon...");
         var dungeon = new Dungeon({
-            name: "New Dungeon"
+            Name: "New Dungeon",
+            Description: "A quick general description of the exterior of the dungeon and any setup."
         });
         
         dungeon.$save(function(response) {
-            $location.path('dungeon/' + response._id);
+            console.log("Success: " + response._id);
+            $location.path('/dungeon/' + response._id);
         }, function(errorResponse) {
+            console.log('Error');
             $scope.error = errorResponse.data.message;
         });
     };
     
     
     $scope.find = function() {
+        console.log("finding dungeons");
         $scope.dungeons = Dungeon.query();
+        console.log($scope.dungeons);
     };
     
     $scope.findOne = function() {
+        console.log("getting dungeon: " + $routeParams.dungeonid);
         $scope.dungeon = Dungeon.get({
             dungeonid: $routeParams.dungeonid
         });
+        console.log($scope.dungeon);
     };
     
     $scope.update = function() {
+        console.log($scope.dungeon + '\n' + $scope.dungeon._id);
+        console.log($scope.dungeon.Name + '\n' + $scope.dungeon.Description);
         $scope.dungeon.$update(function() {
             $location.path('dungeon/' + $scope.dungeon._id);
         }, function(errorResponse) {

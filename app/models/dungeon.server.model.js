@@ -46,4 +46,4 @@ dungeonSchema.virtual('levelCount').get(function() {
 
 dungeonSchema.set('toJSON', { getters: true, virtuals: true });
 
-var Dungeon = mongoose.model('Dungeon', dungeonSchema);
+mongoose.model('Dungeon', dungeonSchema);
